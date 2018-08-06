@@ -73,7 +73,7 @@ function sendGuilds(message) {
 }
 
 // listen to mpp chat
-mpp.client.on('a', function (msg) {
+mpp.on('a', function (msg) {
    if (mpp.client.user._id != msg.p._id) {
        // send on discord if user sended by mpp client
        sendGuilds("(MPP) " + msg.p.name + ": " + msg.a)
