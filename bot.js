@@ -41,9 +41,7 @@ client.on('message', function (message) {
       sendGuilds(message.author.name + ": " + message.content.substring(10))
   }
   
-  if (findguilddata(message.guild.id).recording) {
-     findguilddata(message.guild.id).messages.push(message.author.name + ": " + message.content)
-  }
+  
   if (message.content == "froto boing") {
       message.channel.send("Boing!")
   }
