@@ -25,7 +25,7 @@ client.on('ready', function () {
 client.on('message', function (message) {
   console.log("new message " + message.content)
   
-  
+  if (message.author.bot == false) {
   if (message.content == "froto help") {
       message.channel.send("`froto random` - random 1 to 100, `froto joke` - random joke, `froto boing` - bot sends boing, `froto ads [message]` - make a ad for annoucing. not discord servers")
   }
@@ -45,7 +45,7 @@ client.on('message', function (message) {
   if (message.content == "froto boing") {
       message.channel.send("Boing!")
   }
-
+}
 });
 // automatic add guild data
 
