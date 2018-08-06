@@ -27,7 +27,7 @@ client.on('message', function (message) {
   
   if (message.author.bot == false) {
   if (message.content == "froto help") {
-      message.channel.send("`froto random` - random 1 to 100, `froto joke` - random joke, `froto boing` - bot sends boing, `froto ads [message]` - make a ad for annoucing. not discord servers")
+      message.channel.send("`froto random` - random 1 to 100, `froto joke` - random joke, `froto boing` - bot sends boing")
   }
   if (message.content == "froto random") {
       message.channel.send(Math.floor(Math.random() * 100) + 1)
@@ -36,10 +36,7 @@ client.on('message', function (message) {
       message.channel.send(jokes[Math.floor(Math.random() * jokes.length)])
       
   }
-  if (message.content.substring(0,9) == "froto ads") {
-      
-      sendGuilds(message.author.name + ": " + message.content.substring(10))
-  }
+  
   
   
   if (message.content == "froto boing") {
