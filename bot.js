@@ -16,7 +16,7 @@ client.on('ready', function () {
 
 
 client.on('message', function (message) {
-  console.log("new message for " + message.author.name + ": " + message.content)
+  console.log("new message for " + message.member.name + ": " + message.content)
   
   autoadd(message.guild.id);
   if (message.content == "froto help") {
