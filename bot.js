@@ -16,7 +16,7 @@ client.on('ready', function () {
 
 
 client.on('message', function (message) {
-  console.log("new message for " + message.member.name + ": " + message.content)
+  console.log("new message " + message.content)
   
   autoadd(message.guild.id);
   if (message.content == "froto help") {
@@ -36,7 +36,7 @@ client.on('message', function (message) {
       message.channel.send('yelled the guilds')
       sendGuilds(message.author.name + " has been yelled: " + message.content.substring(11), message.guild)
   }
-  findguilddata(message.guild.id).channel = message.channel.name;
+  
   if (findguilddata(message.guild.id).recording) {
      findguilddata(message.guild.id).messages.push(message.author.name + ": " + message.content)
   }
