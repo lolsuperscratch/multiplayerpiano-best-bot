@@ -3,7 +3,7 @@
 
 // setup
 const Discord = require('discord.js');
-const mpp = require('mpp-client');
+
 
 const client = new Discord.Client();
 
@@ -16,7 +16,8 @@ client.on('ready', function () {
 
 
 client.on('message', function (message) {
-  if (message.member.bot == false) {
+  console.log("new message for " + message.author.name + ": " + message.content)
+  
   autoadd(message.guild.id);
   if (message.content == "froto help") {
       message.channel.send("`froto record` - Record message, `froto stop` - stop record, `froto play` - play that you recorded, `froto yell [message]` - yell the guilds")
@@ -47,7 +48,7 @@ client.on('message', function (message) {
          message.channel.send("Sorry there is no messages recorded!")
       }
   }
-}
+
 });
 // automatic add guild data
 
