@@ -8,55 +8,52 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var guilddata = [];
+var jokes = ["Ayy that is a good food", "i cook the food and awesome", "cool thing that you do"];
 // bot start
 
 client.on('ready', function () {
   console.log('bot ready');
+  for (var guild in client.guilds) {
+        
+        if (author.id != guild.id) {
+        guild.channels.find('name', 'general').send("bot is started now")
+        }
+   }
 });
 
 
 client.on('message', function (message) {
   console.log("new message " + message.content)
   
-  autoadd(message.guild.id);
+  
   if (message.content == "froto help") {
-      message.channel.send("`froto record` - Record message, `froto stop` - stop record, `froto play` - play that you recorded, `froto yell [message]` - yell the guilds")
+      message.channel.send("`froto random` - random 1 to 100, `froto joke` - random joke, `froto boing` - bot sends boing, `froto ads [message]` - make a ad for annoucing. not discord servers")
   }
-  if (message.content == "froto record") {
-      clearArray(findguilddata(message.guild.id).messages)
-      message.channel.send("Recording")
+  if (message.content == "froto random") {
+      message.channel.send(Math.floor(Math.random() * 100) + 1)
+  }
+  if (message.content == "froto joke") {
+      message.channel.send(jokes[Math.floor(Math.random() * jokes.length)])
       
-      findguilddata(message.guild.id).recording = true;
   }
-  if (message.content == "froto stop") {
-      message.channel.send("record stopped")
-      findguilddata(message.guild.id).recording = false;
-  }
-  if (message.content.substring(0,10) == "froto yell") {
-      message.channel.send('yelled the guilds')
-      sendGuilds(message.author.name + " has been yelled: " + message.content.substring(11), message.guild)
+  if (message.content.substring(0,9) == "froto ads") {
+      
+      sendGuilds(message.author.name + ": " + message.content.substring(10))
   }
   
   if (findguilddata(message.guild.id).recording) {
      findguilddata(message.guild.id).messages.push(message.author.name + ": " + message.content)
   }
-  if (message.content == "froto play") {
-      for (var message in findguilddata(message.guild.id).messages) {
-      message.channel.send(message)
-      }
-      if (findguilddata(message.guild.id).messages.length == 0) {
-         message.channel.send("Sorry there is no messages recorded!")
-      }
+  if (message.content == "froto boing") {
+      message.channel.send("Boing!")
   }
 
 });
 // automatic add guild data
 
 function autoadd(id) {
-   for (var data in guilddata) {
-            if (guilddata.id != id) {
-                guilddata.push({id: id, channel: "general", recording: false, cguild: null, messages: []})
-            }
+   if (findguilddata(id) == null) {
+      guilddata.push({id: id, recording: false, messages: [], });
    }
 }
 // find the guild data by id
@@ -69,12 +66,12 @@ function findguilddata(id) {
    return null
 }
 // send on guilds
-function sendGuilds(message, author) {
+function sendGuilds(message) {
    for (var guild in client.guilds) {
-        autoadd(guild.id)
-        if (author.id != guild.id) {
+        
+        
         guild.channels.find('name', 'general').send(message)
-        }
+        
    }
 }
 
@@ -83,6 +80,8 @@ function clearArray(array) {
        array.pop()
    }
 }
+
+
 
 // bot end
 client.login(process.env.BOT_TOKEN);
