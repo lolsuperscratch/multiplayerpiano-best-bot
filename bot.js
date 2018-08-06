@@ -16,7 +16,7 @@ client.on('ready', function () {
 
 
 client.on('message', function (message) {
-  if (!message.author.bot) {
+  if (message.author.bot == false) {
   autoadd(message.guild.id);
   if (message.content == "froto help") {
       message.channel.send("`froto record` - Record message, `froto stop` - stop record, `froto play` - play that you recorded, `froto yell [message]` - yell the guilds")
