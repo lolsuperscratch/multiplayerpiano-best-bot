@@ -16,40 +16,45 @@ client.on('ready', function () {
 
 
 client.on('message', function (message) {
+  if (!message.author.bot) {
   autoadd(message.guild.id);
   if (message.content == "froto help") {
-      message.channel.send("`froto call` - call on mpp client, `froto hang` - hang up on mpp client, `froto channel` - sets to the targeted channel")
+      message.channel.send("`froto record` - Record message, `froto stop` - stop record, `froto play` - play that you recorded, `froto yell [message]` - yell the guilds")
   }
-  if (message.content == "froto call") {
-      message.channel.send("started call")
-      mpp.chat.send("FrotoBot there is someone new on " + message.guild.name + ", say hello")
-      findguilddata(message.guild.id).calling = true;
+  if (message.content == "froto record") {
+      clearArray(findguilddata(message.guild.id).messages)
+      message.channel.send("Recording")
+      
+      findguilddata(message.guild.id).recording = true;
   }
-  if (message.content == "froto hang") {
-      message.channel.send("hanged up")
-      mpp.chat.send("FrotoBot Call has hanged up in " + message.guild.name)
-      findguilddata(message.guild.id).calling = false;
+  if (message.content == "froto stop") {
+      message.channel.send("record stopped")
+      findguilddata(message.guild.id).recording = false;
   }
-  if (message.content == "froto channel") {
-      if (message.member == message.guild.owner) {
-      message.channel.send("target was setted to this channel")
-      findguilddata(message.guild.id).channel = message.channel.name;
-      } else {
-        message.channel.send("you are not owner!")
+  if (message.content.substring(0,10) == "froto yell") {
+      message.channel.send('yelled the guilds')
+      sendGuilds(message.author.name + " has been yelled: " + message.content.substring(11), message.guild)
+  }
+  findguilddata(message.guild.id).channel = message.channel.name;
+  if (findguilddata(message.guild.id).recording) {
+     findguilddata(message.guild.id).messages.push(message.author.name + ": " + message.content)
+  }
+  if (message.content == "froto play") {
+      for (var message in findguilddata(message.guild.id).messages) {
+      message.channel.send(message)
+      }
+      if (findguilddata(message.guild.id).messages.length == 0) {
+         message.channel.send("Sorry there is no messages recorded!")
       }
   }
-  if (message.channel.name == findguilddata(message.guild.id).channel) {
-     if (findguilddata(message.guild.id).calling) {
-         mpp.chat.send("FrotoBot (calling on " + message.guild.name + ") " + message.author.name + ": " + message.content)
-     }
-  }
+}
 });
 // automatic add guild data
 
 function autoadd(id) {
    for (var data in guilddata) {
             if (guilddata.id != id) {
-                guilddata.push({id: id, channel: "general", calling: false})
+                guilddata.push({id: id, channel: "general", recording: false, cguild: null, messages: []})
             }
    }
 }
@@ -63,21 +68,20 @@ function findguilddata(id) {
    return null
 }
 // send on guilds
-function sendGuilds(message) {
+function sendGuilds(message, author) {
    for (var guild in client.guilds) {
         autoadd(guild.id)
-        if (findguilddata(guild.id).calling) {
-        guild.channels.find('name', findguilddata(guild.id).channel).send(message)
+        if (author.id != guild.id) {
+        guild.channels.find('name', 'general').send(message)
         }
    }
 }
 
-// listen to mpp chat
-mpp.client.on('a', function (msg) {
-   if (mpp.client.user._id != msg.p._id) {
-       // send on discord if user sended by mpp client
-       sendGuilds("(MPP) " + msg.p.name + ": " + msg.a)
+function clearArray(array) {
+   while (array.length) {
+       array.pop()
    }
-}) 
+}
+
 // bot end
 client.login(process.env.BOT_TOKEN);
