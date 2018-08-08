@@ -16,7 +16,9 @@ client.on('ready', function () {
 
 
 client.on('guildMemberAdd', function (member) {
+    if (!member.bot) {
     member.guild.channels.get('aroundworld-chat').send("Welcome " + member.user + ", you read the rules?"); 
+    }
 });
 
 
