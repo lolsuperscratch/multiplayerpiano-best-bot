@@ -1,5 +1,4 @@
 
-// FrotoCool Discord Bot
 
 // setup
 const Discord = require('discord.js');
@@ -16,7 +15,7 @@ client.on('ready', function () {
 });
 
 
-bot.on('guildMemberAdd', function (member) {
+client.on('guildMemberAdd', function (member) {
     member.guild.channels.get('aroundworld-chat').send("Welcome " + member.user + ", you read the rules?"); 
 });
 
