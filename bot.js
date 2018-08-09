@@ -37,6 +37,12 @@ client.on('message', function (message) {
      }
      
   }
+  if(message.content.indexOf("wtf") > -1) {
+    message.react("😂")
+  }
+  if(message.content.indexOf("gay") > -1) {
+    message.react("😂")
+  }
 });
 
 
