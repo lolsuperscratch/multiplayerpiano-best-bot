@@ -25,14 +25,18 @@ client.on('message', function (message) {
      }
      if (message.content == "aroundworld help") {
         message.channel.send("check your dms")
-        message.author.send("´dice´ ´ping´ ´game´")
+        message.author.send("`dice` `ping` `game` `kiss`")
      }
      if (message.content == "aroundworld ping") {
-        message.channel.send("Pong! ´" + client.ping + "´")
+        message.channel.send("Pong! `" + client.ping + "`")
         
      }
      if (message.content == "aroundworld dice") {
-        message.channel.send(message.author.name + " did roll a dice! ´" + Math.floor(Math.random() * 8) + "´")
+        message.channel.send(message.author.name + " did roll a dice! `" + Math.floor(Math.random() * 8) + "`")
+        
+     }
+     if (message.content == "aroundworld kiss") {
+        message.channel.send("I kiss " + message.author.name)
         
      }
   }
