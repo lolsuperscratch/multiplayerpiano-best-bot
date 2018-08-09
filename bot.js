@@ -15,26 +15,27 @@ client.on('ready', function () {
 });
 
 
-client.on('guildMemberAdd', function (member) {
-    if (!member.bot) {
-    member.guild.channels.get('aroundworld-chat').send("Welcome " + member.user + ", you read the rules?"); 
-    }
-});
 
-client.on("guildCreate", guild => {
-  var found = false;
-  guild.channels.forEach(function(channel, id) {
-      // If a channel is already found, nothing more needs to be done
-      if(found == true || channel.type != "text") {
-        return;
-      }
-      // If the channel isn't found and the bot has permission to 
-      // send and read messages in the channel, send a welcome message there
-      if(guild.me.permissionsIn(channel).has("SEND_MESSAGES") && guild.me.permissionsIn(channel).has("VIEW_CHANNEL")) {
-        found = true;
-        return channel.send("i welcome to users, Yayayaya")
-      }
-  })
+
+client.on('message', function (message) {
+  if (!message.author.bot) {
+     if (message.content == "aroundworld game") {
+        message.channel.send("check your dms")
+        message.author.send("https://aroundworld.bubbleapps.io")
+     }
+     if (message.content == "aroundworld help") {
+        message.channel.send("check your dms")
+        message.author.send("´dice´ ´ping´ ´game´")
+     }
+     if (message.content == "aroundworld ping") {
+        message.channel.send("Pong! ´" + client.ping + "´")
+        
+     }
+     if (message.content == "aroundworld dice") {
+        message.channel.send(message.author.name + " did roll a dice! ´" + Math.floor(Math.random() * 8) + "´")
+        
+     }
+  }
 });
 
 
