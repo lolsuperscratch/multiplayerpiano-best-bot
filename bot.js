@@ -32,11 +32,11 @@ client.on('message', function (message) {
         
      }
      if (message.content == "aroundworld dice") {
-        message.channel.send(message.author.name + " did roll a dice! `" + Math.floor(Math.random() * 8) + "`")
+        message.channel.send(message.member.name + " did roll a dice! `" + Math.floor(Math.random() * 8) + "`")
         
      }
      if (message.content == "aroundworld kiss") {
-        message.channel.send("I kiss " + message.author.name)
+        message.channel.send("I kiss " + message.member.name)
         
      }
   }
