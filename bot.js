@@ -35,6 +35,10 @@ gClient.on('a',function (msg) {
      if (msg.a.toLowerCase() == "mppx momgay") {
          gClient.sendArray([{m: "a",message: "Ur Mom Gay"]}])
      }
+     // this what happens user needs help command
+     if (msg.a.toLowerCase() == "mppx help") {
+         gClient.sendArray([{m: "a",message: "| name, color, yomama, momgay, test"]}])
+     }
     // orignal commands end
     // make your own commands! (use prefix mppx and spacebar to run better)
 });
